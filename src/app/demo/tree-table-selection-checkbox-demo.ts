@@ -10,14 +10,26 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
   files: TreeNode[];
 
   selectedNodes: TreeNode[];
-
+  backup: TreeNode[];
   cols: any[];
 
   constructor(private nodeService: NodeService) {}
 
   Clickit() {
+    console.log('hello');
     console.log(this.selectedNodes);
+    // console.log(this.selectedNodes.parent);
   }
+
+  clear() {
+    this.backup = [...this.selectedNodes];
+    this.selectedNodes = [];
+  }
+
+  restore() {
+    this.selectedNodes = [...this.backup];
+  }
+
   ngOnInit() {
     this.nodeService.getFilesystem().then((files) => (this.files = files));
     // export interface TreeNode<T = any> {
@@ -46,5 +58,13 @@ export class TreeTableSelectionCheckboxDemo implements OnInit {
       { field: 'size', header: 'Size' },
       { field: 'type', header: 'Type' },
     ];
+
+    // this.selectedNodes = [{
+    //     data  : {name: 'editor.app', size: '25mb', type: 'Application'},
+    //     parent : {
+    //
+    //},
+    //
+    //     }];
   }
 }
